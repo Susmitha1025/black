@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">SDMS</div>
+        <ul class="nav-links">
+            {% if session.get('user_type') %}
+                <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-primary">Logout ({{ session.get('name') }})</a></li>
+            {% else %}
+                <li><a href="{{ url_for('index') }}" class="btn btn-primary">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flashes">
+            {% for message in messages %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Student Database Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

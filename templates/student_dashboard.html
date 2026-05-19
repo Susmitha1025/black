@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Student Dashboard</h1>
+    <p>Welcome, {{ student.name }}!</p>
+</div>
+
+<div class="dashboard-grid">
+    <div class="glass-card">
+        <h2>My Profile</h2>
+        <ul class="profile-list">
+            <li><strong>ID:</strong> {{ student.student_id }}</li>
+            <li><strong>Gender:</strong> {{ student.gender }}</li>
+            <li><strong>DOB:</strong> {{ student.dob }}</li>
+            <li><strong>Phone:</strong> {{ student.phone }}</li>
+            <li><strong>Email:</strong> {{ student.email }}</li>
+            <li><strong>Address:</strong> {{ student.address }}</li>
+        </ul>
+    </div>
+
+    <div class="glass-card">
+        <h2>Attendance</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in attendance %}
+                    <tr>
+                        <td>{{ a.attendance_date }}</td>
+                        <td>
+                            <span class="badge {% if a.status == 'Present' %}badge-success{% else %}badge-danger{% endif %}">
+                                {{ a.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <h2>Marks</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in marks %}
+                    <tr>
+                        <td>{{ m.subject }}</td>
+                        <td>{{ m.marks }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <h2>Fee Status</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in fees %}
+                    <tr>
+                        <td>${{ f.amount }}</td>
+                        <td>{{ f.payment_date }}</td>
+                        <td>
+                            <span class="badge {% if f.status == 'Paid' %}badge-success{% else %}badge-warning{% endif %}">
+                                {{ f.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
